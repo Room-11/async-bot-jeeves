@@ -3,7 +3,7 @@
 namespace Room11\Jeeves\Command\OpenGrok\Handler;
 
 use Amp\Promise;
-use AsyncBot\Driver\StackOverflowChat\Driver;
+use AsyncBot\Core\Driver;
 use AsyncBot\Plugin\OpenGrok\Collection\SearchResults;
 use AsyncBot\Plugin\OpenGrok\Plugin;
 use Room11\Jeeves\Command\OpenGrok\Responder\SearchResults as Responder;

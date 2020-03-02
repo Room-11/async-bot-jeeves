@@ -3,7 +3,7 @@
 namespace Room11\Jeeves\Command\Packagist\Handler;
 
 use Amp\Promise;
-use AsyncBot\Driver\StackOverflowChat\Driver;
+use AsyncBot\Core\Driver;
 use AsyncBot\Plugin\PackagistFinder\Plugin;
 use AsyncBot\Plugin\PackagistFinder\ValueObject\Package;
 use Room11\Jeeves\Command\Packagist\Responder\Package as Responder;

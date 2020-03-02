@@ -3,7 +3,7 @@
 namespace Room11\Jeeves\Command\Man\Handler;
 
 use Amp\Promise;
-use AsyncBot\Driver\StackOverflowChat\Driver;
+use AsyncBot\Core\Driver;
 use AsyncBot\Plugin\LinuxManualPages\Plugin;
 use AsyncBot\Plugin\LinuxManualPages\ValueObject\ManualPage;
 use Room11\Jeeves\Command\Man\Responder\ManPage;

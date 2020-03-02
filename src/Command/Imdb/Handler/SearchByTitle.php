@@ -3,7 +3,7 @@
 namespace Room11\Jeeves\Command\Imdb\Handler;
 
 use Amp\Promise;
-use AsyncBot\Driver\StackOverflowChat\Driver;
+use AsyncBot\Core\Driver;
 use AsyncBot\Plugin\Imdb\Plugin;
 use AsyncBot\Plugin\Imdb\ValueObject\Result\Title;
 use Room11\Jeeves\Command\Imdb\Responder\Title as Responder;

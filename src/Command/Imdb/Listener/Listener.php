@@ -4,7 +4,7 @@ namespace Room11\Jeeves\Command\Imdb\Listener;
 
 use Amp\Promise;
 use Amp\Success;
-use AsyncBot\Driver\StackOverflowChat\Driver;
+use AsyncBot\Core\Driver;
 use AsyncBot\Driver\StackOverflowChat\Event\Data\Message;
 use AsyncBot\Driver\StackOverflowChat\Event\Listener\MessagePosted;
 use AsyncBot\Plugin\Imdb\Plugin;
