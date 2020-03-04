@@ -14,6 +14,7 @@ use AsyncBot\Plugin\GitHubStatus\Parser\Html;
 use AsyncBot\Plugin\GitHubStatus\Plugin as GitHubStatusPlugin;
 use AsyncBot\Plugin\GitHubStatus\Retriever\Http;
 use AsyncBot\Plugin\GitHubStatus\Storage\InMemoryRepository;
+use AsyncBot\Plugin\GoogleSearch\Plugin as GooglePlugin;
 use AsyncBot\Plugin\Imdb\Plugin as ImdbPlugin;
 use AsyncBot\Plugin\Imdb\ValueObject\ApiKey;
 use AsyncBot\Plugin\LinuxManualPages\Plugin as LinuxManualPagesPlugin;
@@ -25,14 +26,17 @@ use AsyncBot\Plugin\PhpBugs\Retriever\GetAllBugs;
 use AsyncBot\Plugin\PhpBugs\Storage\InMemoryRepository as PhpBugsStorage;
 use AsyncBot\Plugin\Wikipedia\Plugin as WikipediaPlugin;
 use AsyncBot\Plugin\WordOfTheDay\Plugin as WordOfTheDayPlugin;
+use Room11\Jeeves\Command\Google\Listener\Listener as GoogleListener;
 use Room11\Jeeves\Command\Imdb\Listener\Listener as ImdbCommandListener;
 use Room11\Jeeves\Command\Man\Listener\Listener as ManListener;
 use Room11\Jeeves\Command\OpenGrok\Listener\Listener as OpenGrokListener;
 use Room11\Jeeves\Command\Packagist\Listener\Listener as PackagistFinderListener;
 use Room11\Jeeves\Command\Wikipedia\Listener\Listener as WikipediaListener;
 use Room11\Jeeves\Command\WordOfTheDay\Listener\Listener as WordOfTheDayCommandListener;
+use Room11\Jeeves\Command\Xkcd\Listener\Listener as XkcdListener;
 use Room11\Jeeves\Listener\OutputNewPhpBugs;
 use Room11\Jeeves\Listener\OutputGitHubStatusChange;
+use AsyncBot\Plugin\Xkcd\Plugin as XkcdPlugin;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -71,6 +75,8 @@ $packagistPlugin    = new PackagistFinderPlugin($httpClient);
 $openGrokPlugin     = new OpenGrokPlugin($httpClient);
 $linuxManPlugin     = new LinuxManualPagesPlugin($httpClient);
 $wikipediaPlugin    = new WikipediaPlugin($httpClient);
+$googlePlugin       = new GooglePlugin($httpClient);
+$xkcdPlugin         = new XkcdPlugin($httpClient, $googlePlugin);
 
 /**
  * Set up runnable plugin(s)
@@ -93,6 +99,8 @@ $stackOverflowChatBot->onNewMessage(new PackagistFinderListener($stackOverflowCh
 $stackOverflowChatBot->onNewMessage(new OpenGrokListener($stackOverflowChatBot, $openGrokPlugin));
 $stackOverflowChatBot->onNewMessage(new ManListener($stackOverflowChatBot, $linuxManPlugin));
 $stackOverflowChatBot->onNewMessage(new WikipediaListener($stackOverflowChatBot, $wikipediaPlugin));
+$stackOverflowChatBot->onNewMessage(new GoogleListener($stackOverflowChatBot, $googlePlugin));
+$stackOverflowChatBot->onNewMessage(new XkcdListener($stackOverflowChatBot, $xkcdPlugin));
 
 /**
  * Run the bot minions

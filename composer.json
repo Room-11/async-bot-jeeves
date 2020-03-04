@@ -18,6 +18,7 @@
         "amphp/log": "^1.0",
         "async-bot/core": "dev-master",
         "async-bot/github-status-plugin": "dev-master",
+        "async-bot/google-search-plugin": "dev-master",
         "async-bot/imdb-plugin": "dev-master",
         "async-bot/linux-manual-pages-plugin": "dev-master",
         "async-bot/open-grok-plugin": "dev-master",
@@ -25,7 +26,8 @@
         "async-bot/php-bugs-plugin": "dev-master",
         "async-bot/stackoverflow-chat-driver": "dev-master",
         "async-bot/wikipedia-plugin": "dev-master",
-        "async-bot/word-of-the-day-plugin": "dev-master"
+        "async-bot/word-of-the-day-plugin": "dev-master",
+        "async-bot/xkcd-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
