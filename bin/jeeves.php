@@ -23,11 +23,13 @@ use AsyncBot\Plugin\PhpBugs\Parser\Html as PhpBugsParser;
 use AsyncBot\Plugin\PhpBugs\Plugin as PhpBugsPlugin;
 use AsyncBot\Plugin\PhpBugs\Retriever\GetAllBugs;
 use AsyncBot\Plugin\PhpBugs\Storage\InMemoryRepository as PhpBugsStorage;
+use AsyncBot\Plugin\Wikipedia\Plugin as WikipediaPlugin;
 use AsyncBot\Plugin\WordOfTheDay\Plugin as WordOfTheDayPlugin;
 use Room11\Jeeves\Command\Imdb\Listener\Listener as ImdbCommandListener;
 use Room11\Jeeves\Command\Man\Listener\Listener as ManListener;
 use Room11\Jeeves\Command\OpenGrok\Listener\Listener as OpenGrokListener;
 use Room11\Jeeves\Command\Packagist\Listener\Listener as PackagistFinderListener;
+use Room11\Jeeves\Command\Wikipedia\Listener\Listener as WikipediaListener;
 use Room11\Jeeves\Command\WordOfTheDay\Listener\Listener as WordOfTheDayCommandListener;
 use Room11\Jeeves\Listener\OutputNewPhpBugs;
 use Room11\Jeeves\Listener\OutputGitHubStatusChange;
@@ -68,6 +70,7 @@ $wordOfTheDayPlugin = new WordOfTheDayPlugin($httpClient);
 $packagistPlugin    = new PackagistFinderPlugin($httpClient);
 $openGrokPlugin     = new OpenGrokPlugin($httpClient);
 $linuxManPlugin     = new LinuxManualPagesPlugin($httpClient);
+$wikipediaPlugin    = new WikipediaPlugin($httpClient);
 
 /**
  * Set up runnable plugin(s)
@@ -89,6 +92,7 @@ $stackOverflowChatBot->onNewMessage(new WordOfTheDayCommandListener($stackOverfl
 $stackOverflowChatBot->onNewMessage(new PackagistFinderListener($stackOverflowChatBot, $packagistPlugin));
 $stackOverflowChatBot->onNewMessage(new OpenGrokListener($stackOverflowChatBot, $openGrokPlugin));
 $stackOverflowChatBot->onNewMessage(new ManListener($stackOverflowChatBot, $linuxManPlugin));
+$stackOverflowChatBot->onNewMessage(new WikipediaListener($stackOverflowChatBot, $wikipediaPlugin));
 
 /**
  * Run the bot minions

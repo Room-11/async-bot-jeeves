@@ -24,6 +24,7 @@
         "async-bot/packagist-finder-plugin": "dev-master",
         "async-bot/php-bugs-plugin": "dev-master",
         "async-bot/stackoverflow-chat-driver": "dev-master",
+        "async-bot/wikipedia-plugin": "dev-master",
         "async-bot/word-of-the-day-plugin": "dev-master"
     },
     "autoload": {
