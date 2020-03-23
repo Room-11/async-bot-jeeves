@@ -24,6 +24,7 @@ use AsyncBot\Plugin\PhpBugs\Parser\Html as PhpBugsParser;
 use AsyncBot\Plugin\PhpBugs\Plugin as PhpBugsPlugin;
 use AsyncBot\Plugin\PhpBugs\Retriever\GetAllBugs;
 use AsyncBot\Plugin\PhpBugs\Storage\InMemoryRepository as PhpBugsStorage;
+use AsyncBot\Plugin\PhpRfcs\Plugin as PhpRfcsPlugin;
 use AsyncBot\Plugin\Wikipedia\Plugin as WikipediaPlugin;
 use AsyncBot\Plugin\WordOfTheDay\Plugin as WordOfTheDayPlugin;
 use Room11\Jeeves\Command\Google\Listener\Listener as GoogleListener;
@@ -31,6 +32,7 @@ use Room11\Jeeves\Command\Imdb\Listener\Listener as ImdbCommandListener;
 use Room11\Jeeves\Command\Man\Listener\Listener as ManListener;
 use Room11\Jeeves\Command\OpenGrok\Listener\Listener as OpenGrokListener;
 use Room11\Jeeves\Command\Packagist\Listener\Listener as PackagistFinderListener;
+use Room11\Jeeves\Command\PhpRfcs\Listener\Listener as PhpRfcsListener;
 use Room11\Jeeves\Command\Wikipedia\Listener\Listener as WikipediaListener;
 use Room11\Jeeves\Command\WordOfTheDay\Listener\Listener as WordOfTheDayCommandListener;
 use Room11\Jeeves\Command\Xkcd\Listener\Listener as XkcdListener;
@@ -77,6 +79,7 @@ $linuxManPlugin     = new LinuxManualPagesPlugin($httpClient);
 $wikipediaPlugin    = new WikipediaPlugin($httpClient);
 $googlePlugin       = new GooglePlugin($httpClient);
 $xkcdPlugin         = new XkcdPlugin($httpClient, $googlePlugin);
+$phpRfcsPlugin      = new PhpRfcsPlugin($httpClient);
 
 /**
  * Set up runnable plugin(s)
@@ -101,6 +104,7 @@ $stackOverflowChatBot->onNewMessage(new ManListener($stackOverflowChatBot, $linu
 $stackOverflowChatBot->onNewMessage(new WikipediaListener($stackOverflowChatBot, $wikipediaPlugin));
 $stackOverflowChatBot->onNewMessage(new GoogleListener($stackOverflowChatBot, $googlePlugin));
 $stackOverflowChatBot->onNewMessage(new XkcdListener($stackOverflowChatBot, $xkcdPlugin));
+$stackOverflowChatBot->onNewMessage(new PhpRfcsListener($stackOverflowChatBot, $phpRfcsPlugin));
 
 /**
  * Run the bot minions
