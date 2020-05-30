@@ -17,6 +17,7 @@
         "amphp/http-client-cookies": "dev-master",
         "amphp/log": "^1.0",
         "async-bot/core": "dev-master",
+        "async-bot/custom-message-command-plugin": "dev-master",
         "async-bot/github-status-plugin": "dev-master",
         "async-bot/google-search-plugin": "dev-master",
         "async-bot/imdb-plugin": "dev-master",

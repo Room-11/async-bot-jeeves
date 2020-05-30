@@ -7,9 +7,12 @@ use Amp\Http\Client\HttpClientBuilder;
 use AsyncBot\Core\Http\Client;
 use AsyncBot\Core\Logger\Factory as LoggerFactory;
 use AsyncBot\Core\Manager;
+use AsyncBot\Core\Storage\KeyValue\FileSystem;
 use AsyncBot\Driver\StackOverflowChat\Authentication\ValueObject\Credentials;
 use AsyncBot\Driver\StackOverflowChat\Driver;
 use AsyncBot\Driver\StackOverflowChat\Factory as StackOverflowChatDriverFactory;
+use AsyncBot\Plugin\CustomMessageCommand\Plugin as CustomCommandPlugin;
+use AsyncBot\Plugin\CustomMessageCommand\Storage;
 use AsyncBot\Plugin\GitHubStatus\Parser\Html;
 use AsyncBot\Plugin\GitHubStatus\Plugin as GitHubStatusPlugin;
 use AsyncBot\Plugin\GitHubStatus\Retriever\Http;
@@ -27,6 +30,7 @@ use AsyncBot\Plugin\PhpBugs\Storage\InMemoryRepository as PhpBugsStorage;
 use AsyncBot\Plugin\PhpRfcs\Plugin as PhpRfcsPlugin;
 use AsyncBot\Plugin\Wikipedia\Plugin as WikipediaPlugin;
 use AsyncBot\Plugin\WordOfTheDay\Plugin as WordOfTheDayPlugin;
+use Room11\Jeeves\Command\CustomCommand\Listener\Listener as CustomCommandListener;
 use Room11\Jeeves\Command\Google\Listener\Listener as GoogleListener;
 use Room11\Jeeves\Command\Imdb\Listener\Listener as ImdbCommandListener;
 use Room11\Jeeves\Command\Man\Listener\Listener as ManListener;
@@ -71,15 +75,16 @@ $stackOverflowChatBot = (new StackOverflowChatDriverFactory(
 /**
  * Set up plugin(s)
  */
-$imdbPlugin         = new ImdbPlugin($httpClient, new ApiKey($configuration['apis']['omdbApiKey']));
-$wordOfTheDayPlugin = new WordOfTheDayPlugin($httpClient);
-$packagistPlugin    = new PackagistFinderPlugin($httpClient);
-$openGrokPlugin     = new OpenGrokPlugin($httpClient);
-$linuxManPlugin     = new LinuxManualPagesPlugin($httpClient);
-$wikipediaPlugin    = new WikipediaPlugin($httpClient);
-$googlePlugin       = new GooglePlugin($httpClient);
-$xkcdPlugin         = new XkcdPlugin($httpClient, $googlePlugin);
-$phpRfcsPlugin      = new PhpRfcsPlugin($httpClient);
+$imdbPlugin          = new ImdbPlugin($httpClient, new ApiKey($configuration['apis']['omdbApiKey']));
+$wordOfTheDayPlugin  = new WordOfTheDayPlugin($httpClient);
+$packagistPlugin     = new PackagistFinderPlugin($httpClient);
+$openGrokPlugin      = new OpenGrokPlugin($httpClient);
+$linuxManPlugin      = new LinuxManualPagesPlugin($httpClient);
+$wikipediaPlugin     = new WikipediaPlugin($httpClient);
+$googlePlugin        = new GooglePlugin($httpClient);
+$xkcdPlugin          = new XkcdPlugin($httpClient, $googlePlugin);
+$phpRfcsPlugin       = new PhpRfcsPlugin($httpClient);
+$customCommandPlugin = new CustomCommandPlugin(new Storage(new FileSystem(__DIR__ . '/../data/config.json')));
 
 /**
  * Set up runnable plugin(s)
@@ -105,6 +110,7 @@ $stackOverflowChatBot->onNewMessage(new WikipediaListener($stackOverflowChatBot,
 $stackOverflowChatBot->onNewMessage(new GoogleListener($stackOverflowChatBot, $googlePlugin));
 $stackOverflowChatBot->onNewMessage(new XkcdListener($stackOverflowChatBot, $xkcdPlugin));
 $stackOverflowChatBot->onNewMessage(new PhpRfcsListener($stackOverflowChatBot, $phpRfcsPlugin));
+$stackOverflowChatBot->onNewMessage(new CustomCommandListener($stackOverflowChatBot, $customCommandPlugin));
 
 /**
  * Run the bot minions
